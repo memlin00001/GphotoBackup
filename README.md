@@ -26,7 +26,7 @@
 ### 2. 安裝依賴
 
 ```bash
-cd /home/ives/Documents/GphotoBackup
+cd /home/yourName/Documents/GphotoBackup
 
 # 如果沒有 pip，請先安裝
 # Ubuntu/Debian:
