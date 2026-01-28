@@ -80,7 +80,7 @@ class GoogleAuthManager:
         """
         執行 OAuth 認證流程
         
-        會開啟瀏覽器讓使用者登入 Google 帳號並授權。
+        顯示認證 URL 讓使用者在瀏覽器開啟並授權。
         
         Returns:
             新的 Google OAuth2 憑證
@@ -99,19 +99,23 @@ class GoogleAuthManager:
                 f"4. 下載 JSON 檔案並重新命名為 client_secret.json"
             )
         
-        print("🔐 正在開啟瀏覽器進行 Google 認證...")
-        print("   請登入您的 Google 帳號並授權存取 Google Photos")
+        print("🔐 Google 認證")
+        print("=" * 50)
         
         flow = InstalledAppFlow.from_client_secrets_file(
             str(self.client_secret_path), SCOPES
         )
         
-        # 使用本地伺服器接收 OAuth 回調
-        credentials = flow.run_local_server(
-            port=0,  # 自動選擇可用的 port
+        # 使用 console 模式，顯示 URL 讓使用者手動開啟
+        flow.run_local_server(
+            port=8080,
             prompt='consent',
-            open_browser=True
+            open_browser=False,
+            authorization_prompt_message='📋 請在瀏覽器開啟以下網址進行認證:\n\n{url}\n',
+            success_message='✅ 認證成功！您可以關閉此視窗。'
         )
+        
+        credentials = flow.credentials
         
         # 儲存 token 以便下次使用
         self._credentials = credentials
