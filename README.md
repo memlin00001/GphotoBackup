@@ -100,5 +100,5 @@ GphotoBackup/
 - 點擊「進階」→「前往 (您的專案名稱)」即可繼續
 
 ## 授權
-
+Test Project by
 MIT License
